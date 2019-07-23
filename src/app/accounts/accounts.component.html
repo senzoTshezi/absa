@@ -1,0 +1,33 @@
+<div class="shadow p-3 mb-5 bg-white rounded border">
+    <h3>Account List</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <!-- Headers -->
+        <th scope="col">Account Number</th>
+        <th scope="col">Account Type</th>
+        <th scope="col">Balance</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Displaying our accounts  -->
+      <tr  *ngFor="let account of lstaccounts" >
+        <td>{{ account.account_number }}</td>
+        <td>{{ account.account_type }}</td>
+        <td>{{ account.balance }}</td>
+        <td >
+          <!-- Showing disable and enable buttons based our bussiness Rules, here we have flexibility to control each button bease on the rule  -->
+            <button [hidden]="account.account_type =='savings' &&  account.balance <'-500' && account.account_type =='savings' || account.balance <'0' && account.balance >'-500'" type="button" class="btn btn-success"  bind-disabled="isDisabled" (click)="withdrawal()">Withdraw</button>   
+            <button [hidden]="account.account_type =='cheque' && account.balance <='0' || account.balance >='0' " type="button" class="btn btn-success" disabled>Withdraw</button>
+            <button [hidden]="account.account_type =='savings' || account.balance <'-500' || account.balance > 0  " type="button" class="btn btn-success" disabled>Withdraw</button>
+        </td>
+      </tr>
+      <!-- Total -->
+      <tr style="background-color: white">
+          <td colspan="2" ><h4>Balance</h4> </td>
+          <td colspan="2"> <h4>ZAR {{totalValue}}</h4></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
